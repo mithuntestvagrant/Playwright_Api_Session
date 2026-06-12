@@ -1,0 +1,85 @@
+openapi: 3.0.0
+
+info:
+title: Restful Booker API
+version: 1.0.0
+
+paths:
+/booking/{id}:
+put:
+summary: Update Booking
+parameters:
+- name: id
+in: path
+required: true
+schema:
+type: integer
+
+```
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            firstname:
+              type: string
+            lastname:
+              type: string
+            totalprice:
+              type: integer
+            depositpaid:
+              type: boolean
+            bookingdates:
+              type: object
+              properties:
+                checkin:
+                  type: string
+                checkout:
+                  type: string
+            additionalneeds:
+              type: string
+          required:
+            - firstname
+            - lastname
+            - totalprice
+            - depositpaid
+            - bookingdates
+
+  responses:
+    '200':
+      description: Booking updated successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstname:
+                type: string
+              lastname:
+                type: string
+              totalprice:
+                type: integer
+              depositpaid:
+                type: boolean
+              bookingdates:
+                type: object
+                properties:
+                  checkin:
+                    type: string
+                  checkout:
+                    type: string
+              additionalneeds:
+                type: string
+
+  security:
+    - cookieAuth: []
+```
+
+components:
+securitySchemes:
+cookieAuth:
+type: apiKey
+in: cookie
+name: token
