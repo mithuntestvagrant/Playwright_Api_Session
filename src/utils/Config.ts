@@ -8,6 +8,10 @@ export class Config {
     return process.env.BASE_URL || '';
   }
 
+  static get escuelaBaseURL(): string {
+    return process.env.ESCUELA_BASE_URL || '';
+  }
+
   static get username(): string {
     return process.env.USERNAME || '';
   }
