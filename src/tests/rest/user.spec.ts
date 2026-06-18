@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { BookingApi } from '../../api/BookingApi';
+import { ApiFactory } from '../../factory/factorymethod';
 import { AuthTokenGen } from '../../utils/AuthTokenGen';
 import userData from '../../data/bookingdata.json';
 import updateData from '../../data/updatedata.json';
@@ -7,7 +7,7 @@ import updateData from '../../data/updatedata.json';
 import Ajv from 'ajv';
 import userSchema from '../../schemas/userSchema.json';
 
-const api = (request: any) => new BookingApi(request);
+const api = (request: any) => ApiFactory.BookingApi(request);
 
 // 🔥 AJV setup (clean way)
 const ajv = new Ajv({ allErrors: true });

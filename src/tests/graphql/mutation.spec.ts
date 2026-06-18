@@ -1,10 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { GraphQLClient } from '../../api/GraphqlClient';
 import { UserQueriesMutation } from '../../graphQl/UserQueriesMutation';
+import{ApiFactory} from '../../factory/factorymethod';    
+
 
 test('Create Post Mutation', async ({ request }) => {
 
-  const graphQLClient = new GraphQLClient(request);
+  const graphQLClient = ApiFactory.GraphQLClient(request);
 
   const variables = {
     input: {

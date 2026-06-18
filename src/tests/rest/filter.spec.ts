@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { ProductApi } from '../../api/filterApi';
+import { ApiFactory } from '../../factory/factorymethod';   
 
 test('Filter products by title', async ({ request }) => {
 
-    const productApi = new ProductApi(request);
+    const productApi = ApiFactory.ProductApi(request);
 
     const response = await productApi.filterByTitle('Classic');
 

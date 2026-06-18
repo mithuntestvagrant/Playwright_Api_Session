@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { GraphQLClient } from '../../api/GraphqlClient';
 import { UserQueries } from '../../graphQl/UserQueries';
+import{ApiFactory} from '../../factory/factorymethod';  
 
 test('Get Post Details', async ({ request }) => {
 
-  const graphQLClient = new GraphQLClient(request);
+  const graphQLClient = ApiFactory.GraphQLClient(request);
 
   const response = await graphQLClient.executeQuery(
     UserQueries.getPost,

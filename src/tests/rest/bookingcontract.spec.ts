@@ -3,6 +3,9 @@ import { BookingApi } from '../../api/BookingApi';
 import bookingData from '../../data/bookingdata.json';
 import { YamlReader } from '../../contract/yamlReader';
 import { validateSchema } from '../../schemas/schemaValidator';
+import { ApiFactory } from '../../factory/factorymethod';
+
+test.describe('Booking Contract Validation', () => {
 
 test('Create Booking Contract Validation', async ({ request }) => {
 
@@ -17,7 +20,7 @@ swagger.paths['/booking']
 .content['application/json']
 .schema;
 
-const bookingApi = new BookingApi(request);
+const bookingApi = ApiFactory.BookingApi(request);
 
 // Create Booking
 const response = await bookingApi.createBooking(bookingData);
@@ -56,4 +59,5 @@ expect(body.booking.depositpaid)
 .toBe(bookingData.depositpaid);
 
 console.log('✅ Create Booking Contract Validation Passed');
+});
 });
