@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
-import { BookingApi } from '../api/BookingApi';
-import { AuthTokenGen } from '../utils/AuthTokenGen';
-import userData from '../data/bookingdata.json';
-import updateData from '../data/updatedata.json';
+import { BookingApi } from '../../api/BookingApi';
+import { AuthTokenGen } from '../../utils/AuthTokenGen';
+import userData from '../../data/bookingdata.json';
+import updateData from '../../data/updatedata.json';
 
 import Ajv from 'ajv';
-import userSchema from '../schemas/userSchema.json';
+import userSchema from '../../schemas/userSchema.json';
 
 const api = (request: any) => new BookingApi(request);
 

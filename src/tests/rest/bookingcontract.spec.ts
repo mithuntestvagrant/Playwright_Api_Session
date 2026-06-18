@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { BookingApi } from '../api/BookingApi';
-import bookingData from '../data/bookingdata.json';
-import { YamlReader } from '../contract/yamlReader';
-import { validateSchema } from '../schemas/schemaValidator';
+import { BookingApi } from '../../api/BookingApi';
+import bookingData from '../../data/bookingdata.json';
+import { YamlReader } from '../../contract/yamlReader';
+import { validateSchema } from '../../schemas/schemaValidator';
 
 test('Create Booking Contract Validation', async ({ request }) => {
 
