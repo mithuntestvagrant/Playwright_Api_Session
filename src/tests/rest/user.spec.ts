@@ -9,21 +9,29 @@ import userSchema from '../../schemas/userSchema.json';
 
 const api = (request: any) => ApiFactory.BookingApi(request);
 
-// 🔥 AJV setup (clean way)
 const ajv = new Ajv({ allErrors: true });
 const validateCreateSchema = ajv.compile(userSchema);
 
 test.describe('Booking API Request Flow', () => {
 
-  // 🟢 1. CREATE BOOKING
+  let bookingId: number;
+
+  test.beforeAll(async ({ request }) => {
+    const createRes = await api(request).createBooking(userData);
+    const createBody = await createRes.json();
+
+    bookingId = createBody.bookingid;
+  });
+
+  // 🟢 CREATE + SCHEMA VALIDATION
   test('Create Booking', async ({ request }) => {
 
     const res = await api(request).createBooking(userData);
+
     expect(res.status()).toBe(200);
 
     const body = await res.json();
 
-    // 🔥 SCHEMA VALIDATION (ONLY HERE)
     const isValid = validateCreateSchema(body);
 
     if (!isValid) {
@@ -35,14 +43,11 @@ test.describe('Booking API Request Flow', () => {
     console.log('✅ CREATE RESPONSE:', body);
   });
 
-
-  // 🟢 2. GET BOOKING
+  // 🟢 GET BOOKING
   test('Get Booking', async ({ request }) => {
 
-    const createRes = await api(request).createBooking(userData);
-    const bookingId = (await createRes.json()).bookingid;
-
     const res = await api(request).getBooking(bookingId);
+
     expect(res.status()).toBe(200);
 
     const body = await res.json();
@@ -50,12 +55,8 @@ test.describe('Booking API Request Flow', () => {
     console.log('📦 GET RESPONSE:', body);
   });
 
-
-  // 🟡 3. UPDATE BOOKING
+  // 🟡 UPDATE BOOKING
   test('Update Booking', async ({ request }) => {
-
-    const createRes = await api(request).createBooking(userData);
-    const bookingId = (await createRes.json()).bookingid;
 
     const token = await AuthTokenGen.generateToken(request);
 
@@ -72,12 +73,8 @@ test.describe('Booking API Request Flow', () => {
     console.log('✏️ UPDATE RESPONSE:', body);
   });
 
-
-  // 🔴 4. DELETE BOOKING
+  // 🔴 DELETE BOOKING
   test('Delete Booking', async ({ request }) => {
-
-    const createRes = await api(request).createBooking(userData);
-    const bookingId = (await createRes.json()).bookingid;
 
     const token = await AuthTokenGen.generateToken(request);
 
